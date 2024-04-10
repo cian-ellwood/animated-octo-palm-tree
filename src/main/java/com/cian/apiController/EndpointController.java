@@ -1,4 +1,4 @@
 package com.cian.apiController;
 
-public class MainController {
+public class EndpointController {
 }
