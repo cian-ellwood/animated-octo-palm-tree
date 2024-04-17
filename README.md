@@ -20,3 +20,18 @@ The following technologies will be used for the complete end to end flow, these 
 - Gatling (to test populating payloads at scale as well as overall application performance)
 - Prometheus (to handle metrics)
 - Grafana Mimir (as our DB)
+
+##TODO
+- [x] Create a Basic Restful API Service to begin containerization
+- [x] Containerize Application using Docker
+  - [ ] Update Gradle to Add Build Scripts for Docker Build/Run/Push
+- [ ] Deploy image using Kubernetes to make this scalable
+- [ ] Add 2 additional endpoints that support GET requests, use dummy data for now
+- [ ] Add 2 additional endpoints that support POST requests to forward to DB
+- [ ] For the GET Endpoints, expand the functionality to report service info and health. 
+  - https://www.baeldung.com/spring-boot-info-actuator-custom <- we will utilise this for the info as it's free 
+- [ ] For the POST Endpoints, expand the functionality to create the records dynamically using a trusted source
+  - https://www.baeldung.com/java-json-deserialize-record-gson <- this could be one of the approaches i follow, this may be updated down the line
+  - This may involve creating a separate repo for me to pull from, could use a python script to pull these into a local dir
+- [ ] Configure fluentbit to scrape data from the services endpoint, this will probably live on a local server
+- [ ] Configure Prometheus on local machine to report data accurately
