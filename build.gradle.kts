@@ -20,3 +20,11 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
+
+//we use latest for local build work
+//TODO investigate failed to compute cache key error
+task<Exec>("buildDockerImage"){
+    dependsOn(("clean"))
+    dependsOn(("build"))
+    commandLine("docker", "build", "-t", "apilogger", ".")
+}

@@ -25,7 +25,7 @@ The following technologies will be used for the complete end to end flow, these 
 - [x] Create a Basic Restful API Service to begin containerization
 - [x] Containerize Application using Docker
   - [ ] Update Gradle to Add Build Scripts for Docker Build/Run/Push
-- [ ] Deploy image using Kubernetes to make this scalable
+- [ ] Deploy image using Kubernetes and Helm to make this scalable
 - [ ] Add 2 additional endpoints that support GET requests, use dummy data for now
 - [ ] Add 2 additional endpoints that support POST requests to forward to DB
 - [ ] For the GET Endpoints, expand the functionality to report service info and health. 
