@@ -1,4 +1,5 @@
 import Build_gradle.ServiceVars.serviceName
+
 object ServiceVars {
     const val serviceName = "apilogger"
 }
@@ -15,11 +16,6 @@ repositories {
 }
 
 group = "CianTestGroup"
-version = if (project.property("version") != "unspecified") {
-    "${project.property("version")}"
-} else {
-    "0.0.0"
-}
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -30,17 +26,34 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-
-
-
-task<Exec>("buildDockerImage"){
-    dependsOn("clean", "build")
-    tasks.getByName("build").mustRunAfter("clean")
-
-    //When overriding global var
-    if (project.hasProperty("version")){
-        version = "${project.property("version")}"
+//We need to run this independently of the rest of the build script so that the version can be uptaken when the build task is ran
+task<Exec>("updateVersion") {
+    if (project.property("confidenceLevel") == "PROD") {
+        commandLine("python", "${projectDir.absolutePath}/src/main/resources/scripts/updateServiceVersion.py")
+    } else {
+        println("Skipping incrementing the version as confidence level is not PROD")
     }
+}
+
+task("getVersion") {
+    version = if (project.property("confidenceLevel") == "PROD") {
+        val serviceVersion = File("src/main/resources/scripts/scriptHelpers/version.json")
+        val json = groovy.json.JsonSlurper().parseText(serviceVersion.readText()) as Map<*, *>
+
+        json["version"] as String
+    } else {
+        "0.0.0"
+    }
+
+    doLast{
+        println(version)
+    }
+}
+task<Exec>("buildDockerImage"){
+    dependsOn("clean", "build", "getVersion")
+    tasks.getByName("clean").mustRunAfter("getVersion")
+    tasks.getByName("build").mustRunAfter("clean")
+    //We won't start tagging the version until the build is successful
     commandLine("docker", "build", "-t", "$serviceName:$version", ".", "--build-arg", "VERSION=$version")
 
 }
@@ -51,6 +64,7 @@ task<Exec>("saveDockerImage"){
 }
 
 task<Exec>("tagDockerImage"){
+    dependsOn("getVersion")
     val imageTag="${project.property("dockerHub")}:$serviceName-$version"
     commandLine("docker", "tag", "$serviceName:$version", imageTag)
 }
