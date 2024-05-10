@@ -3,6 +3,7 @@
 
 import datetime
 import json
+import yaml
 
 
 def format_current_week_and_year():
@@ -16,7 +17,7 @@ def format_current_week_and_year():
 
 
 def set_new_service_version(calendar_version):
-    with open("src/main/resources/scripts/scriptHelpers/version.json") as version_data:
+    with open("py-scripts/scriptHelpers/version.json") as version_data:
         data = json.load(version_data)
         current_version = data["version"]
         # If I take this in as an Integer I can increment easier down the line
@@ -37,18 +38,24 @@ def set_new_service_version(calendar_version):
 
         # We prettify the output json
         updated_version_json_file = json.dumps(data, indent=4)
-        return updated_version_json_file
+        return updated_version_json_file, new_version
 
 
 def update_version_file(updated_version_json_file):
-    # using json.dump here causes the json data to double encode and break the script
-    with open("src/main/resources/scripts/scriptHelpers/version.json", "w") as old_version_data:
+    # if we used json.dump here it would cause the json data to double encode and break the script
+    with open("py-scripts/scriptHelpers/version.json", "w") as old_version_data:
         old_version_data.write(updated_version_json_file)
+
+
+def update_k8s_version(new_version):
+    with open("k8s/apiLogger/Chart.yaml") as k8s_version:
+        k8_data = yaml.load(k8s_version, Loader=yaml.FullLoader)
+        k8_data["appVersion"] = new_version
 
 
 def main():
     calendar_version = format_current_week_and_year()
-    updated_version_json_file = set_new_service_version(calendar_version)
+    updated_version_json_file, new_version = set_new_service_version(calendar_version)
     update_version_file(updated_version_json_file)
 
 
