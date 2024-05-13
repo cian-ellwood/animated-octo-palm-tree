@@ -30,7 +30,7 @@ The following technologies will be used for the complete end to end flow, these 
   - [ ] Create Helm deployment scripts in Gradle
 - [ ] Add 2 additional endpoints that support GET requests, use dummy data for now
 - [ ] Add 2 additional endpoints that support POST requests to forward to DB
-- [ ] For the GET Endpoints, expand the functionality to report service info and health. 
+- [x] For the GET Endpoints, expand the functionality to report service info and health. 
   - https://www.baeldung.com/spring-boot-info-actuator-custom <- we will utilise this for the info as it's free 
 - [ ] For the POST Endpoints, expand the functionality to create the records dynamically using a trusted source
   - https://www.baeldung.com/java-json-deserialize-record-gson <- this could be one of the approaches i follow, this may be updated down the line
