@@ -1,8 +1,3 @@
-import Build_gradle.ServiceVars.serviceName
-
-object ServiceVars {
-    const val serviceName = "apilogger"
-}
 
 plugins {
     java
@@ -54,23 +49,18 @@ task<Exec>("buildDockerImage"){
     tasks.getByName("clean").mustRunAfter("getVersion")
     tasks.getByName("build").mustRunAfter("clean")
     //We won't start tagging the version until the build is successful
-    commandLine("docker", "build", "-t", "$serviceName:$version", ".", "--build-arg", "VERSION=$version")
+    val serviceName = rootProject.name
+    val imageTag="${project.property("dockerHub")}:$serviceName-$version"
+    commandLine("docker", "build", "-t", imageTag, ".", "--build-arg", "VERSION=$version")
 
 }
 
 task<Exec>("saveDockerImage"){
     dependsOn("buildDockerImage")
-    commandLine("docker", "save", "-o", "$serviceName-$version.tar.gz", "$serviceName:$version")
-}
-
-task<Exec>("tagDockerImage"){
-    dependsOn("getVersion")
-    val imageTag="${project.property("dockerHub")}:$serviceName-$version"
-    commandLine("docker", "tag", "$serviceName:$version", imageTag)
+    commandLine("docker", "save", "-o", "${rootProject.name}-$version.tar.gz", "${rootProject.name}:$version")
 }
 
 task<Exec>("publishDockerImage"){
-    dependsOn("tagDockerImage")
-    val imageTag="${project.property("dockerHub")}:$serviceName-$version"
+    val imageTag="${project.property("dockerHub")}:${rootProject.name}-$version"
     commandLine("docker", "push", imageTag)
 }

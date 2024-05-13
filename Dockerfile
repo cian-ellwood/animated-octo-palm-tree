@@ -7,7 +7,7 @@ RUN yum update -y && \
 
 ARG VERSION
 # Copy jar into current workdir
-COPY /build/libs/animated-octo-palm-tree-${VERSION}.jar .
+COPY /build/libs/apilogger-${VERSION}.jar .
 COPY /build/resources/main/application.properties .
 ENTRYPOINT ["java", "-jar", "/usr/local/apiLogger/animated-octo-palm-tree-${VERSION}.jar"]
 EXPOSE 3030
