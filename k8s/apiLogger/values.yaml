@@ -7,8 +7,10 @@ replicaCount: 1
 image:
   repository: nginx
   pullPolicy: IfNotPresent
+  name: cellwood/dockerhub
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.0.0"
+  tag: apilogger-0.0.0
+
 
 imagePullSecrets: []
 nameOverride: ""

@@ -24,7 +24,7 @@ java {
 //We need to run this independently of the rest of the build script so that the version can be uptaken when the build task is ran
 task<Exec>("updateVersion") {
     if (project.property("confidenceLevel") == "PROD") {
-        commandLine("python", "${projectDir.absolutePath}/src/main/resources/scripts/updateServiceVersion.py")
+        commandLine("python", "${projectDir.absolutePath}/py-scripts/updateServiceVersion.py")
     } else {
         println("Skipping incrementing the version as confidence level is not PROD")
     }
@@ -32,7 +32,7 @@ task<Exec>("updateVersion") {
 
 task("getVersion") {
     version = if (project.property("confidenceLevel") == "PROD") {
-        val serviceVersion = File("src/main/resources/scripts/scriptHelpers/version.json")
+        val serviceVersion = File("py-scripts/scriptHelpers/version.json")
         val json = groovy.json.JsonSlurper().parseText(serviceVersion.readText()) as Map<*, *>
 
         json["version"] as String
