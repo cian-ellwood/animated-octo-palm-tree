@@ -27,6 +27,7 @@ The following technologies will be used for the complete end to end flow, these 
   - [x] Update Gradle to Add Build Scripts for Docker Build/Save/Push
   - [x] Create a versioning script to follow YYYY.WW.<INC>
 - [ ] Deploy image using Kubernetes and Helm to make this scalable
+  - [ ] Create Helm deployment scripts in Gradle
 - [ ] Add 2 additional endpoints that support GET requests, use dummy data for now
 - [ ] Add 2 additional endpoints that support POST requests to forward to DB
 - [ ] For the GET Endpoints, expand the functionality to report service info and health. 
