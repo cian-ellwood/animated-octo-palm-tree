@@ -20,6 +20,7 @@ The following technologies will be used for the complete end to end flow, these 
 - Gatling (to test populating payloads at scale as well as overall application performance)
 - Prometheus (to handle metrics)
 - Grafana Mimir (as our DB)
+  - (Could be Mongo if the atlas integration goes well)
 
 ##TODO
 - [x] Create a Basic Restful API Service to begin containerization
@@ -30,6 +31,8 @@ The following technologies will be used for the complete end to end flow, these 
   - [ ] Create Helm deployment scripts in Gradle
 - [ ] Add 2 additional endpoints that support GET requests, use dummy data for now
 - [ ] Add 2 additional endpoints that support POST requests to forward to DB
+  - [ ] Swapping from record class to creating records directly in MongoDB instead, want to play around with it some more
+  - Can access stats using `db.getCollection("stats").find()`
 - [x] For the GET Endpoints, expand the functionality to report service info and health. 
   - https://www.baeldung.com/spring-boot-info-actuator-custom <- we will utilise this for the info as it's free 
 - [ ] For the POST Endpoints, expand the functionality to create the records dynamically using a trusted source

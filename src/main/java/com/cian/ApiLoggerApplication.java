@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApiLogger {
+public class ApiLoggerApplication {
     public static void main(String[] args){
-        SpringApplication.run(ApiLogger.class, args);
+        SpringApplication.run(ApiLoggerApplication.class, args);
     }
 }
