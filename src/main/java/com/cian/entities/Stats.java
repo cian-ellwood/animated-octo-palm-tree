@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 public class Stats {
 
     @Id
+    private String id;
     private String component;
     private Long loadTime;
     private Long status;
