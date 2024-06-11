@@ -1,6 +1,9 @@
 package com.cian;
 
+import com.cian.entities.Logs;
 import com.cian.entities.Stats;
+import com.cian.repositories.LogsRepository;
+import com.cian.repositories.StatsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -15,9 +18,11 @@ class LoadMongoDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadMongoDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(StatsRepository statsRepository){
+    CommandLineRunner initDatabase(StatsRepository statsRepository, LogsRepository logsRepository){
         return args -> {
             log.info("Preloading " + statsRepository.save(new Stats("service1", 103311L, 200L, "application/json", "firefox")));
+            log.info("Preloading " + logsRepository.save(new Logs("TEST", "V1.0", "ApiLogger", "\"age\": \"{{int(50)}} years old\"", "firefox")));
+
         };
     }
 }

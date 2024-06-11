@@ -30,8 +30,8 @@ The following technologies will be used for the complete end to end flow, these 
 - [ ] Deploy image using Kubernetes and Helm to make this scalable
   - [ ] Create Helm deployment scripts in Gradle
 - [ ] Add 2 additional endpoints that support GET requests, use dummy data for now
-- [ ] Add 2 additional endpoints that support POST requests to forward to DB
-  - [ ] Swapping from record class to creating records directly in MongoDB instead, want to play around with it some more
+- [X] Add 2 additional endpoints that support POST requests to forward to DB
+  - [X] Swapping from record class to creating records directly in MongoDB instead, want to play around with it some more
   - Can access stats using `db.getCollection("stats").find()`
 - [x] For the GET Endpoints, expand the functionality to report service info and health. 
   - https://www.baeldung.com/spring-boot-info-actuator-custom <- we will utilise this for the info as it's free 
