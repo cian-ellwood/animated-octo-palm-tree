@@ -42,3 +42,7 @@ The following technologies will be used for the complete end to end flow, these 
 - [ ] Create start script for java application
 - [ ] Configure fluentbit to scrape data from the services endpoint, this will probably live on a local server
 - [ ] Configure Prometheus on local machine to report data accurately
+
+##Nice to Have
+- [ ] Create CRUD UI and mount on backend using Vue JS
+	- [ ] https://www.baeldung.com/spring-boot-vue-js
